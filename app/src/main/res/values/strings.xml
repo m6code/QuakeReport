@@ -15,4 +15,8 @@
 -->
 <resources>
     <string name="app_name">Quake Report</string>
+
+    <string name="sample_magnitude">7.1</string>
+    <string name="sample_name">South Africa</string>
+    <string name="sample_time">778642675362</string>
 </resources>
