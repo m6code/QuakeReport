@@ -15,7 +15,14 @@
         android:text="@string/sample_magnitude" />
 
     <TextView
-        android:id="@+id/textView_place_name"
+        android:id="@+id/textView_place_offset"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        tools:text="78Km NE of" />
+
+    <TextView
+        android:id="@+id/textView_place_location"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -34,6 +41,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        tools:text="@string/sample_time" />
+        tools:text="3:00 PM" />
 
 </LinearLayout>
