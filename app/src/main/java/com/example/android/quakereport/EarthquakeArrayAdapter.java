@@ -26,6 +26,7 @@ import java.util.Date;
 public class EarthquakeArrayAdapter extends ArrayAdapter<Earthquake> {
 
     private static final String LOCATION_SEPERATOR = "of";
+
     /**
      * create a new {@link EarthquakeArrayAdapter} object
      *
@@ -46,7 +47,7 @@ public class EarthquakeArrayAdapter extends ArrayAdapter<Earthquake> {
         }
 
         // Get the {@link Earthquake} object located at this position in the list
-        Earthquake currentEarthquake = getItem(position);
+        final Earthquake currentEarthquake = getItem(position);
 
         // find the current magnitude of the currentEarthquake from the list_item.xml view
         TextView tv_magnitude = (TextView) listItemView.findViewById(R.id.textView_magnitude);
@@ -104,7 +105,7 @@ public class EarthquakeArrayAdapter extends ArrayAdapter<Earthquake> {
 
         // Set the proper background color on the magnitude circle
         // Fetch the background from the TextView, which is a GradientDrawable
-        GradientDrawable magnitudeCircle = (GradientDrawable)tv_magnitude.getBackground();
+        GradientDrawable magnitudeCircle = (GradientDrawable) tv_magnitude.getBackground();
 
         // Get the appropriate background color based on the current earthquake magnitude
         int magnitudeColor = getMagnitudeColor(currentEarthquake.getMagnitude());
@@ -141,20 +142,21 @@ public class EarthquakeArrayAdapter extends ArrayAdapter<Earthquake> {
     /**
      * Return formatted magnitude string in 1 decimal place (i.e 6.7)
      * from decimal magnitude value
+     *
      * @param magnitude is the magnitude in double
      * @return the formatted magnitude in 1 decimal place
      */
-    private String formatMagnitude(double magnitude){
+    private String formatMagnitude(double magnitude) {
         DecimalFormat magnitudeFormat = new DecimalFormat("0.0");
         return magnitudeFormat.format(magnitude);
     }
 
-    private int getMagnitudeColor(double magnitude){
+    private int getMagnitudeColor(double magnitude) {
         int magnitudeColorResourceId;
-        int magnitudeFloor = (int)Math.floor(magnitude); // rounds the magnitude from double to integer
+        int magnitudeFloor = (int) Math.floor(magnitude); // rounds the magnitude from double to integer
         // check the magnitude of the earthquake and sets the
         // appropriate color background for the magnitude_circle.xml
-        switch (magnitudeFloor){
+        switch (magnitudeFloor) {
             case 0:
             case 1:
                 magnitudeColorResourceId = R.color.magnitude1;
@@ -181,10 +183,10 @@ public class EarthquakeArrayAdapter extends ArrayAdapter<Earthquake> {
                 magnitudeColorResourceId = R.color.magnitude8;
                 break;
             case 9:
-                magnitudeColorResourceId =R.color.magnitude9;
+                magnitudeColorResourceId = R.color.magnitude9;
                 break;
             default:
-                magnitudeColorResourceId =R.color.magnitude10plus;
+                magnitudeColorResourceId = R.color.magnitude10plus;
                 break;
         }
 

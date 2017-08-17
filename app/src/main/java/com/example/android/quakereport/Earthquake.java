@@ -10,6 +10,7 @@ public class Earthquake {
     private String mName;
     private double mMagnitude;
     private long mTime;
+    private String mURL;
 
     /**
      * Creates a constructor to hold earthquake information
@@ -18,10 +19,11 @@ public class Earthquake {
      * @param name      the name of the place the earthquake occurred
      * @param time      the time when the earthquake occurred
      */
-    public Earthquake(double magnitude, String name, long time) {
+    public Earthquake(double magnitude, String name, long time, String url) {
         mMagnitude = magnitude;
         mName = name;
         mTime = time;
+        mURL = url;
     }
 
     /**
@@ -49,6 +51,10 @@ public class Earthquake {
      */
     public long getTime() {
         return mTime;
+    }
+
+    public String getURL(){
+        return mURL;
     }
 
 }

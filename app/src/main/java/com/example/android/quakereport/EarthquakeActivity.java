@@ -15,9 +15,14 @@
  */
 package com.example.android.quakereport;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -31,7 +36,7 @@ public class EarthquakeActivity extends AppCompatActivity {
         setContentView(R.layout.earthquake_activity);
 
         // Get the list of earthquakes from {@link QueryUtils}
-        ArrayList<Earthquake> earthquakes = QueryUtils.extractEarthquakes();
+        final ArrayList<Earthquake> earthquakes = QueryUtils.extractEarthquakes();
 
 
         // Find a reference to the {@link ListView} in the layout
@@ -41,5 +46,23 @@ public class EarthquakeActivity extends AppCompatActivity {
         EarthquakeArrayAdapter adapter = new EarthquakeArrayAdapter(this, earthquakes);
 
         earthquakeListView.setAdapter(adapter);
+
+        // Set on click listener to launch the url for the current earthquake
+        earthquakeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Earthquake earthquake = earthquakes.get(i); //get the index of the current earthquake
+
+                // Use intent to launch the  url
+                Intent launchUrl = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse(earthquake.getURL()));
+                // Check if an app is available to launch intent
+                if (launchUrl.resolveActivity(getPackageManager()) != null) {
+                    startActivity(launchUrl);
+                } else {
+                    Toast.makeText(getApplicationContext(), "No app to handle intent", Toast.LENGTH_LONG);
+                }
+            }
+        });
     }
 }
