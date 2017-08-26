@@ -20,4 +20,5 @@
     <string name="sample_name">South Africa</string>
     <string name="sample_time">778642675362</string>
     <string name="empty_state">No Earthquake Found</string>
+    <string name="no_internet">No Internet Connection</string>
 </resources>

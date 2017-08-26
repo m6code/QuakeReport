@@ -17,8 +17,11 @@ package com.example.android.quakereport;
 
 import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
+import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -100,14 +103,30 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderCallb
             }
         });
 
-        // Get a reference to the LoaderManager, in order to interact with loaders
-        LoaderManager loaderManager = getLoaderManager();
+        // Get a reference to the ConnectivityManager to check state of network
+        ConnectivityManager connectivityManager  = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        // Get details on the currently active network
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+        // Check if network connection is available then fetch data
+        if (networkInfo !=null && networkInfo.isConnectedOrConnecting()){
+            // Get a reference to the LoaderManager, in order to interact with loaders
+            LoaderManager loaderManager = getLoaderManager();
 
 
-        // Initialize the loader. Pass in the int ID constant defined above and pass in null for
-        // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
-        // because this activity implements the LoaderCallbacks interface).
-        loaderManager.initLoader(EARTHQUAKE_LOADER_ID, null, this);
+            // Initialize the loader. Pass in the int ID constant defined above and pass in null for
+            // the bundle. Pass in this activity for the LoaderCallbacks parameter (which is valid
+            // because this activity implements the LoaderCallbacks interface).
+            loaderManager.initLoader(EARTHQUAKE_LOADER_ID, null, this);
+        }else{
+            // Set the Loading/progress bar to gone
+            mLoading.setVisibility(View.GONE);
+
+            // Set the empty state textView to display no network connection
+            mEmptyStateTextView.setText(R.string.no_internet);
+        }
 
     }
 
